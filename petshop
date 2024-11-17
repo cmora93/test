@@ -1,0 +1,456 @@
+usuario1 = "admin"
+clave1 = "admin"
+usuario2 = "user"
+clave2 = "123456"
+disponibilidad = ""
+vacunacion = ""
+dias_disponibles = ["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]
+horarios_disponibles = ["9 mañana", "10 mañana", "11 mañana", "1 tarde", "2 tarde", "3 tarde"]
+cita_actual = None
+citas = {}
+nombreMedico = ""
+codigoMedico = ""
+especialidadMedico = ""
+telefonoMedico = ""
+correoMedico = ""
+disponibilidad = ""
+nombreCliente = ""
+apellidoCliente = ""
+cedulaCliente = ""
+telCliente = ""
+correoCliente = ""
+direccionCliente = ""
+lista_mascotas = []
+
+class Vacuna:
+    def __init__(self, nombre, descripcion, dosis, dias_siguiente_dosis):
+        self.nombre = nombre
+        self.descripcion = descripcion
+        self.dosis = dosis
+        self.dias_siguiente_dosis = dias_siguiente_dosis
+
+    def __str__(self):
+        return f"{self.nombre}: {self.descripcion}, {self.dosis}, {self.dias_siguiente_dosis}"
+class Mascota:
+    def __init__(self, nombreMasc, razaMasc, nacimientoMasc, sexoMasc, pesoMasc, caractMasc, alimentoMasc,
+                 observacionesMasc):
+        self.nombreMasc = nombreMasc
+        self.razaMasc = razaMasc
+        self.nacimientoMasc = nacimientoMasc
+        self.sexoMasc = sexoMasc
+        self.pesoMasc = pesoMasc
+        self.caractMasc = caractMasc
+        self.alimentoMasc = alimentoMasc
+        self.observacionesMasc = observacionesMasc
+
+    def __str__(self):
+        return f"El nombre es {self.nombreMasc}, la raza es {self.razaMasc}, nacio el dia {self.nacimientoMasc}," \
+               f" su sexo es {self.sexoMasc}, el peso es{self.pesoMasc}, otras caracteristicas {self.caractMasc}," \
+               f" le gusta el comer {self.alimentoMasc}, observaciones a considerar {self.observacionesMasc}"
+
+def guardar_datos_en_archivo(nombre_archivo, datos):
+    with open(nombre_archivo, "w") as archivo:
+        for clave, valor in datos.items():
+            archivo.write(f"{clave}: {valor}\n")
+            
+def moduloRegistros():
+    global citas, nombreMedico, codigoMedico, especialidadMedico, telefonoMedico, correoMedico, disponibilidad
+    global nombreCliente, apellidoCliente, cedulaCliente, telCliente, correoCliente, direccionCliente, lista_mascotas
+    global citas  # Aseguramos que estemos utilizando la variable global
+    print("Paso 1.")
+    print("<Modulo de registro Doctor especialista>")
+    nombreMedico = input("Nombre de Médico: ")
+    codigoMedico = input("Código de Médico: ")
+    especialidadMedico = input("Especialidad: ")
+    telefonoMedico = input("Teléfono: ")
+    correoMedico = input("Correo: ")
+    print("Disponibilidad de Horario:")
+    print("1. Mañanas L-V")
+    print("2. Tardes L-V")
+    print("3. Fines de semana S-D")
+    dispOpcion = input("Elige una Opción:")
+    if dispOpcion == "1":
+        disponibilidad = "Mañanas L-V"
+    elif dispOpcion == "2":
+        disponibilidad = "Tardes L-V"
+    elif dispOpcion == "3":
+        disponibilidad = "Fines de semana S-D"
+    else:
+        disponibilidad = "Opción no válida"
+    #para el almacenamiento de los datos del medico en un TXT
+    datos_medico = {
+        "Nombre": nombreMedico,
+        "Código Médico": codigoMedico,
+        "Especialidad": especialidadMedico,
+        "Teléfono": telefonoMedico,
+        "Correo": correoMedico,
+        "Disponibilidad": disponibilidad
+    }
+    guardar_datos_en_archivo(f"medico_{codigoMedico}.txt", datos_medico)
+    
+    print("\nPaso 2.")
+    print("<Modulo de registro del Dueño>")
+    nombreCliente = input("Digite el Nombre del Cliente: ")
+    apellidoCliente = input("Digite el Apellido: ")
+    cedulaCliente = input("Digite la cédula: ")
+    telCliente = input("Digite el teléfono: ")
+    correoCliente = input("Digite el correo: ")
+    direccionCliente = input("Digite la dirección del Cliente: ")
+
+    #Guardamos la informacion del cliente
+    datos_cliente = {
+        "Nombre": nombreCliente,
+        "Apellido": apellidoCliente,
+        "Cédula": cedulaCliente,
+        "Teléfono": telCliente,
+        "Correo": correoCliente,
+        "Dirección": direccionCliente
+    }
+    guardar_datos_en_archivo(f"cliente_{cedulaCliente}.txt", datos_cliente)
+
+    
+    print("\nPaso 3.")
+    print("<Modulo de registro de Mascota>")
+    class Mascota:
+        def __init__(self, nombreMasc, razaMasc, nacimientoMasc, sexoMasc, pesoMasc, caractMasc, alimentoMasc,
+                     observacionesMasc):
+            self.nombreMasc = nombreMasc
+            self.razaMasc = razaMasc
+            self.nacimientoMasc = nacimientoMasc
+            self.sexoMasc = sexoMasc
+            self.pesoMasc = pesoMasc
+            self.caractMasc = caractMasc
+            self.alimentoMasc = alimentoMasc
+            self.observacionesMasc = observacionesMasc
+
+            
+
+        def __str__(self):
+            """para devolver los valores en un formato legible"""
+            return f"El nombre es {self.nombreMasc}, la raza es {self.razaMasc}, nacio el dia {self.nacimientoMasc}," \
+                   f" su sexo es {self.sexoMasc}, el peso es{self.pesoMasc}, otras caracteristicas {self.caractMasc}," \
+                   f" le gusta el comer {self.alimentoMasc}, observaciones a considerar {self.observacionesMasc}"
+    lista_mascotas = []
+    cantMasc = int(input("Digite la cantidad de mascotas que desea registrar: "))
+    num = 1
+    print("Mascota", num)
+    while num <= cantMasc:
+        objeto = Mascota(
+            nombreMasc=input("Digite el nombre de la mascota: "),
+            razaMasc=input("Digite la raza: "),
+            nacimientoMasc=input("Día de nacimiento: "),
+            sexoMasc=input("Sexo: "),
+            pesoMasc=input("Peso: "),
+            caractMasc=input("Características: "),
+            alimentoMasc=input("¿Qué tipo de alimento consume? "),
+            observacionesMasc=input("Observación adicional: ")
+        )
+        #guardamos los datos de las mascota en un archivo
+        datos_mascota = {
+            "Nombre": objeto.nombreMasc,
+            "Raza": objeto.razaMasc,
+            "Nacimiento": objeto.nacimientoMasc,
+            "Sexo": objeto.sexoMasc,
+            "Peso": objeto.pesoMasc,
+            "Características": objeto.caractMasc,
+            "Alimento": objeto.alimentoMasc,
+            "Observaciones": objeto.observacionesMasc
+        }
+        guardar_datos_en_archivo(f"mascota_{objeto.nombreMasc}.txt", datos_mascota)
+
+
+        lista_mascotas.append(objeto)
+        print("")
+        num += 1
+    print("-----------Datos almacenados---------")
+    print("Gracias por preferirnos:")
+    print("Datos del médico asignado:")
+    print("Cliente: ", nombreMedico)
+    print("Código Med: ", codigoMedico)
+    print("Especialidad: ", especialidadMedico)
+    print("Teléfono: ", telefonoMedico)
+    print("Correo: ", correoMedico)
+    print("Disponibilidad: ", disponibilidad)
+    print("Datos del Cliente:")
+    print("Nombre: ", nombreCliente)
+    print("Apellido: ", apellidoCliente)
+    print("Cédula: ", cedulaCliente)
+    print("Teléfono: ", telCliente)
+    print("Correo: ", correoCliente)
+    print("Dirección: ", direccionCliente)
+    [print(f"Mascota {i + 1}:\n" + mascota.__str__()) for i, mascota in enumerate(lista_mascotas)]
+    print("----------Vuelva Pronto---------------")
+    print("-------------------------------------")
+    
+def programar_cita(dia, horario, mascota, dueno, doctor_turno):
+    global cita_actual, citas  # Declaramos las variables globales
+    # Verificamos si el horario ya está ocupado
+    if dia in citas and horario in citas[dia]:
+        print("\nEste horario ya está ocupado. Elija otro.\n")
+    else:
+        if dia not in citas:
+            citas[dia] = {}
+        citas[dia][horario] = {"mascota": mascota, "dueno": dueno, "doctor_turno": doctor_turno}
+        cita_actual = citas[dia][horario]  # Guardamos la información de la cita
+        print("Cita programada con éxito.")
+def mostrar_citas():
+    print("Citas programadas:")
+    for dia, horarios in citas.items():
+        for horario, info_cita in horarios.items():
+            print(f"{dia} - {horario}: Mascota: {info_cita['mascota']}, Dueño: {info_cita['dueno']}, Doctor: {info_cita['doctor_turno']}")
+def moduloClinica():
+    global citas  # Aseguramos que estemos utilizando la variable global
+    while True:
+        print("\n1. Programar cita")
+        print("2. Mostrar citas")
+        print("3. Programar Vacunacion")
+        print("4. Eliminar Cita")
+        print("9. Salir")
+        opcion = input("Digite la opción: ")
+
+        if opcion == "1":
+            print("Días disponibles:")
+            for i, dia in enumerate(["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]):
+                print(f"{i + 1}. {dia}")
+
+            opcion_dia = int(input("Elija el número del día: "))
+            if 1 <= opcion_dia <= 7:
+                dia = dias_disponibles[opcion_dia - 1]
+                print("Horarios disponibles:")
+                for x, horario in enumerate(horarios_disponibles):
+                    print(f"{x + 1}. {horario}")
+                opcion_horario = int(input("Elija el número del horario: "))
+                if 1 <= opcion_horario <= 6:
+                    horario = horarios_disponibles[opcion_horario - 1]
+                    mascota = input("Ingrese el nombre de la mascota: ")
+                    dueno = input("Ingrese el nombre del dueño de la mascota: ")
+                    if opcion_horario in [1, 2, 3]:
+                        doctor_turno = "Dr. Juan"
+                    elif opcion_horario in [4, 5, 6]:
+                        doctor_turno = "Dr. Emanuel"
+                    programar_cita(dia, horario, mascota, dueno, doctor_turno)
+                else:
+                    print("Opción no válida.")
+            else:
+                print("Opción no válida.")
+        elif opcion == "2":
+            mostrar_citas()
+        elif opcion == "3":
+            moduloVacunacion()
+        elif opcion == "4":
+            moduloCancelacion()
+        elif opcion == "9":
+            break
+        else:
+            print("Opción no válida. Intente de nuevo.")
+def moduloVacunacion():
+    global citas  # Aseguramos que estemos utilizando la variable global
+    vacunas_disponibles = [
+        Vacuna("Ditemper", "Vacuna para Ditemper", "2 Dosis", "Dias para la siguiente dosis 21"),
+        Vacuna("Parvovirus", "Vacuna contra Parvovirus", "1 Dosis", "Dias para la siguiente dosis 30"),
+        Vacuna("Hepatitis", "Vacuna contra Hepatitis", "3 Dosis", "Dias para la siguiente dosis 12")]
+    print("Días disponibles:")
+    for i, dia in enumerate(["lunes", "martes", "miércoles", "jueves", "viernes", "sábado", "domingo"]):
+        print(f"{i + 1}. {dia}")
+    opcion_dia = int(input("Elija el número del día: "))
+    if 1 <= opcion_dia <= 7:
+        dia = dias_disponibles[opcion_dia - 1]
+        print("Horarios disponibles:")
+        for x, horario in enumerate(horarios_disponibles):
+            print(f"{x + 1}. {horario}")
+
+        opcion_horario = int(input("Elija el número del horario: "))
+        if 1 <= opcion_horario <= 6:
+            horario = horarios_disponibles[opcion_horario - 1]
+            mascota = input("Ingrese el nombre de la mascota: ")
+            dueno = input("Ingrese el nombre del dueño de la mascota: ")
+            if opcion_horario in [1, 2, 3]:
+                doctor_turno = "Dr. Juan"
+            elif opcion_horario in [4, 5, 6]:
+                doctor_turno = "Dr. Emanuel"
+            print("Vacunas disponibles:")
+            for vacuna in vacunas_disponibles:
+                print(vacuna)
+            opcion_vacuna = int(input("Seleccione la vacuna (1, 2, 3): "))
+            if 1 <= opcion_vacuna <= 3:
+                vacuna_seleccionada = vacunas_disponibles[opcion_vacuna - 1]
+                programar_cita(dia, horario, mascota, dueno, doctor_turno)
+            else:
+                print("Opción no válida.")
+        else:
+            print("Opción no válida.")
+    else:
+        print("Opción no válida.")
+    
+def moduloCancelacion():
+    global citas  # Accedemos a la variable global
+    cont=1
+    print("Citas programadas:")
+    for dia, horarios in citas.items():
+        for horario, info_cita in horarios.items():
+            print(f"{cont}. {dia} - {horario}: Mascota: {info_cita['mascota']}, Dueño: {info_cita['dueno']}, Doctor: {info_cita['doctor_turno']}")
+            cont = cont+1
+    eliminar = int(input("¿Cuál cita desea eliminar? Ingrese el número correspondiente: "))
+    if 1<= eliminar <=cont:
+        cont =1
+        for dia, horarios in list(citas.items()):
+            for horario in list(horarios):
+                if cont == eliminar:
+                    del citas[dia][horario]
+                    print("Cita eliminada con éxito.")
+                    return
+                cont += 1
+    else:
+        print("Número de cita inválido.")
+
+def historial():
+    global citas, nombreMedico, codigoMedico, especialidadMedico, telefonoMedico, correoMedico, disponibilidad
+    global nombreCliente, apellidoCliente, cedulaCliente, telCliente, correoCliente, direccionCliente, lista_mascotas
+    print("\nHistorial de datos ingresados en el sistema\n")
+    print("Seleccione la informacion que quiere observar:")
+    print("1.Ficha Clinica.")
+    print("2.Citas Programadas.")
+    print("3.Ultima Factura")
+    opcionHistorial = (int)(input("Digite la opcion> "))
+    if (opcionHistorial==1):
+        print("-----------Datos almacenados---------")
+        print("Gracias por preferirnos:")
+        print("Datos del médico asignado:")
+        print("Cliente: ", nombreMedico)
+        print("Código Med: ", codigoMedico)
+        print("Especialidad: ", especialidadMedico)
+        print("Teléfono: ", telefonoMedico)
+        print("Correo: ", correoMedico)
+        print("Disponibilidad: ", disponibilidad)
+        print("Datos del Cliente:")
+        print("Nombre: ", nombreCliente)
+        print("Apellido: ", apellidoCliente)
+        print("Cédula: ", cedulaCliente)
+        print("Teléfono: ", telCliente)
+        print("Correo: ", correoCliente)
+        print("Dirección: ", direccionCliente)
+        [print(f"Mascota {i + 1}:\n" + mascota.__str__()) for i, mascota in enumerate(lista_mascotas)]
+        print("----------Vuelva Pronto---------------")
+        print("-------------------------------------")
+    elif (opcionHistorial==2):
+        mostrar_citas()
+    elif (opcionHistorial==3):
+        print("Última Factura:")
+        # Asumiendo que la factura se guarda en un archivo llamado "factura.txt"
+        try:
+            with open("factura.txt", "r") as archivo_factura:
+                contenido_factura = archivo_factura.read()
+                print(contenido_factura)
+        except FileNotFoundError:
+            print("No se encontró ninguna factura.")
+    else:
+        print("Opción no válida.")
+        
+class Producto:
+    def __init__(self, nombre, precio):
+        self.nombre = nombre
+        self.precio = precio
+    def __str__(self):
+        return f"{self.nombre}: ${self.precio}"
+    
+def ventaProductos(nombre_cliente):
+    print(f"\nFactura para: {nombre_cliente}")
+
+    print("\nProductos disponibles:")
+    productos_disponibles = [
+        {"nombre": "Alimento para gato", "descripcion": "Bolsa de 1 kg", "precio": 100},
+        {"nombre": "Alimento para perro", "descripcion": "Bolsa de 2 kg", "precio": 150},
+        {"nombre": "Jabón antipulgas", "descripcion": "Frasco de 250 ml", "precio": 200},
+        {"nombre": "Collar para mascotas", "descripcion": "Talla única", "precio": 250},
+    ]
+
+    # Mostrar los productos disponibles
+    for i, producto in enumerate(productos_disponibles, start=1):
+        print(f"{i}. {producto['nombre']}: {producto['descripcion']}, Precio: ${producto['precio']}")
+
+    # Pedir al usuario que elija productos
+    productos_elegidos = []
+    while True:
+        opcion = input("Seleccione un producto (número) o presione Enter para finalizar: ")
+        if not opcion:
+            break
+        try:
+            opcion = int(opcion)
+            if 1 <= opcion <= len(productos_disponibles):
+                producto_elegido = productos_disponibles[opcion - 1]
+                productos_elegidos.append(producto_elegido)
+                print(f"Producto añadido: {producto_elegido['nombre']}")
+            else:
+                print("Opción no válida. Intente de nuevo.")
+        except ValueError:
+            print("Entrada no válida. Ingrese un número o presione Enter para finalizar.")
+
+    # Calcular totales
+    subtotal_general = sum(producto['precio'] for producto in productos_elegidos)
+    iva = subtotal_general * 0.13
+    total_general = subtotal_general + iva
+
+    # Mostrar la factura
+    print("\nProductos seleccionados:")
+    for producto in productos_elegidos:
+        print(f"{producto['nombre']}: {producto['descripcion']}, Precio: ${producto['precio']}")
+    
+    # Guardar datos de la factura en un archivo
+    with open("factura.txt", "w") as archivo_factura:
+        archivo_factura.write(f"\nFactura para: {nombre_cliente}\n")
+        archivo_factura.write("\nProductos seleccionados:\n")
+        for producto in productos_elegidos:
+            archivo_factura.write(f"{producto['nombre']}: {producto['descripcion']}, Precio: ${producto['precio']}\n")
+
+        # Guardar totales
+        archivo_factura.write("\nTotales:\n")
+        archivo_factura.write(f"Subtotal: ${subtotal_general}\n")
+        archivo_factura.write(f"IVA (13%): ${iva}\n")
+        archivo_factura.write(f"Total General: ${total_general}\n")
+
+    print("\n----------Factura Guardada en factura.txt---------------")
+  
+
+def menu():
+    opcion = 0
+    print("*******************")
+    print("1. Inicio de sesion")
+    print("2. Salir")
+    print("*******************")
+    while opcion != 2:
+        opcion = int(input("Digite alguna opción> "))
+        if opcion == 1:
+            print("Inicio de sesión>")
+            usuario = input("Usuario: ")
+            while usuario == usuario1 or usuario == usuario2:
+                print("")
+                clave = input("Ingrese la clave: ")
+                print("")
+                while clave == clave1 or clave == clave2:
+                    print("Bienvenido de Nuevo", usuario)
+                    print("")
+                    print("1. Modulos de registros.")
+                    print("2. Modulos de clínica.")
+                    print("3. Módulo de venta de productos.")
+                    print("4. Historial.")
+                    print("5. Salir")
+                    print("")
+                    opcionModulo = int(input("Digite la opción deseada: "))
+                    if opcionModulo == 1:
+                        moduloRegistros()
+                    elif opcionModulo == 2:
+                        moduloClinica()
+                    elif opcionModulo ==3:
+                        nombre_cliente = input("Ingrese el nombre del cliente: ")
+                        ventaProductos(nombre_cliente)
+                    elif opcionModulo == 4:
+                        historial()
+                    elif opcionModulo == 5:
+                        menu()
+                print("Clave inválida...")
+            print("Usuario no existe...")
+        elif opcion == 2:
+            break
+            print("Saliendo del Sistema...")
+
+menu()
