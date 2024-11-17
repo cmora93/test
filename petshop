@@ -65,7 +65,7 @@ def moduloRegistros():
     telefonoMedico = input("Teléfono: ")
     correoMedico = input("Correo: ")
     print("Disponibilidad de Horario:")
-    print("1. Mañanas L-V")
+    print("1. Mañanas L-V")ñ
     print("2. Tardes L-V")
     print("3. Fines de semana S-D")
     dispOpcion = input("Elige una Opción:")
